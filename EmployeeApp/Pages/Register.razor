@@ -42,20 +42,20 @@
                     </label>
                     
                     <label>
-                        <input type="checkbox" name="profile" value="/assets/profile-images/p1.png"
-                               @onchange="@(()=> addimg("/assets/profile-images/p1.png"))" />
+                        <input type="checkbox" name="profile" value="/assets/profile-images/p2.png"
+                               @onchange="@(()=> addimg("/assets/profile-images/p2.png"))" />
                         <img src="/assets/profile-images/p2.png" />
                     </label>
                     
                     <label>
-                        <input type="checkbox" name="profile" value="/assets/profile-images/p1.png"
-                               @onchange="@(()=> addimg("/assets/profile-images/p1.png"))" />
+                        <input type="checkbox" name="profile" value="/assets/profile-images/p3.png"
+                               @onchange="@(()=> addimg("/assets/profile-images/p3.png"))" />
                         <img src="/assets/profile-images/p3.png" />
                     </label>
                     
                     <label>
-                        <input type="checkbox" name="profile" value="/assets/profile-images/p1.png"
-                               @onchange="@(()=> addimg("/assets/profile-images/p1.png"))" />
+                        <input type="checkbox" name="profile" value="/assets/profile-images/p4.png"
+                               @onchange="@(()=> addimg("/assets/profile-images/p4.png"))" />
                         <img src="/assets/profile-images/p4.png" />
                     </label>
                 </div>
@@ -73,14 +73,14 @@
             
                 <div class="row-content">
 
-                    <label class="label text">Dartment</label>
-                    <select class="ip" name="department" id="gender" @bind="@empM.Department" required>
+                    <label class="label text" for="department">Department</label>
+                    <select class="ip" name="department" id="department" @bind="@empM.Department" required>
                         <option value="--">-- Select Department --</option>
                         <option value="Male">HR</option>
                         <option value="Female">Engineer</option>
                         <option value="Other">Finance</option>
                         <option value="Other">Business</option>
-                        <option value="Other">Finance</option>
+                        <option value="Other">Manager</option>
 
                     </select>
 
