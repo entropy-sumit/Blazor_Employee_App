@@ -47,44 +47,38 @@
 }
 
 .form-content {
-    min-height: calc(100% - 80px);
-    background-color: #f5f5f5;
+    padding-top: 25px;
+    min-height: calc(100%-80px);
+    background-color: #f7f7f7;
     display: flex;
     justify-content: center;
-    align-items: center;
-    border: 0px solid green;
-    margin-top: 20px;
 }
 
+
 .form {
-    width: 70%;
-    padding: 35px 50px;
-    background: #f7f4f4 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 6px #00000029;
+    width: 65%;
+    padding: 44px 60px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #f5f5f5;
     border-radius: 8px;
-    opacity: 1;
+    box-shadow: 0px 3px 6px #00000029;
+    opacity: 100%;
 }
 
 .form-head {
-    font: normal normal bold 24px/37px Roboto;
+    font: normal normal bold 20px/37px Roboto;
     letter-spacing: 0px;
-    color: #04203b;
+    color: #42515f;
     text-transform: capitalize;
     opacity: 1;
     padding-bottom: 20px;
-    margin-left: 50px;
 }
 
 .row-content {
     display: flex;
-    flex-direction: row;
     margin-bottom: 10px;
     align-items: center;
-    border: 0px solid green;
-    margin-top: 30px;
-    margin-left: 50px;
-    margin-right: 50px;
+    border: 1px;
 }
 
 .label {
@@ -93,7 +87,7 @@
 
 label {
     padding: 12px 12px 12px 0;
-    display: inline-block;
+    display: block;
 }
 
 .text {
@@ -184,4 +178,13 @@ error-output {
     font-style: normal;
     color: tomato;
     white-space: nowrap;
+}
+.EditForm {
+    width: 65%;
+    padding: 44px 60px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px #00000029;
+    opacity: 100%;
 }

@@ -22,7 +22,7 @@ namespace RepositoryLayer.Services
             sqlConnection = new SqlConnection(this.configuration.GetConnectionString("EMPLOYEE_APP_BLAZOR"));
             try
             {
-                using(this.sqlConnection)
+                using (this.sqlConnection)
                 {
                     SqlCommand cmd = new SqlCommand("Sp_AddEmployees", sqlConnection);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -48,7 +48,7 @@ namespace RepositoryLayer.Services
                 }
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -57,7 +57,47 @@ namespace RepositoryLayer.Services
                 this.sqlConnection.Close();
             }
         }
+        public IEnumerable<EmployeeModel> GetAllEmployee()
+        {
+            List<EmployeeModel> listEmployee = new List<EmployeeModel>();
+            sqlConnection = new SqlConnection(this.configuration.GetConnectionString("EMPLOYEE_APP_BLAZOR"));
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("sp_GetAllEmployee", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    this.sqlConnection.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        EmployeeModel employeeModel = new EmployeeModel();
 
-        
+                        employeeModel.EmployeeId = Convert.ToInt32(rdr["EmployeeID"]);
+                        employeeModel.Name = rdr["Name"].ToString();
+                        employeeModel.Gender = rdr["Gender"].ToString();
+                        employeeModel.ProfileImg = rdr["Profile_Img"].ToString();
+                        employeeModel.Notes = rdr["Notes"].ToString();
+                        employeeModel.Department = rdr["Department"].ToString();
+                        employeeModel.Salary = rdr["Salary"].ToString();
+
+                        listEmployee.Add(employeeModel);
+                    }
+                    sqlConnection.Close();
+                }
+                return listEmployee;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+
+
+
+        }
     }
 }

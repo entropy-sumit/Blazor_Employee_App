@@ -1,5 +1,8 @@
 ﻿@page "/Reg"
 @using CommonLayer.Model
+@using BussinessLAyer.Interfaces
+
+@inject IRegisterBL registerBL
 
 
 <html>
@@ -33,29 +36,33 @@
                 <div class="profile-radio-content">
                    
                     <label>
-                        <input type="checkbox" id="profilel" name="profile" value="/assets/profile-images/p1.png" required>
-                        <img class="profile" id='imagel' src="/assets/profile-images/p1.png">
+                        <input type="checkbox" name="profile" value="/assets/profile-images/p1.png"
+                               @onchange="@(()=> addimg("/assets/profile-images/p1.png"))" />
+                        <img src="/assets/profile-images/p1.png" />
                     </label>
                     
                     <label>
-                        <input type="checkbox" id="profile2" name="profile" value="/assets/profile-images/p2.png" required>
-                        <img class="profile" id='image2' src="/assets/profile-images/p2.png">
+                        <input type="checkbox" name="profile" value="/assets/profile-images/p1.png"
+                               @onchange="@(()=> addimg("/assets/profile-images/p1.png"))" />
+                        <img src="/assets/profile-images/p2.png" />
                     </label>
                     
                     <label>
-                        <input type="checkbox" id="profile3" name="profile" value="/assets/profile-images/p3.png" required>
-                        <img class="profile" id='image3' src="/assets/profile-images/p3.png">
+                        <input type="checkbox" name="profile" value="/assets/profile-images/p1.png"
+                               @onchange="@(()=> addimg("/assets/profile-images/p1.png"))" />
+                        <img src="/assets/profile-images/p3.png" />
                     </label>
                     
                     <label>
-                        <input type="checkbox" id="profile4" name="profile" value="/assets/profile-images/p4.png" required>
-                        <img class="profile" id='image4' src="/assets/profile-images/p4.png">
+                        <input type="checkbox" name="profile" value="/assets/profile-images/p1.png"
+                               @onchange="@(()=> addimg("/assets/profile-images/p1.png"))" />
+                        <img src="/assets/profile-images/p4.png" />
                     </label>
                 </div>
             </div>
             <div class="row-content">
                 
-                <label for="gender"><b>Gender</b></label>
+                <label class="label text"for="gender"> Gender</label>
                 <select class="ip" name="gender" id="gender" @bind="@empM.Gender" required>
                     <option value="--">-- Select Gender --</option>
                     <option value="Male">Male</option>
@@ -63,28 +70,28 @@
                     <option value="Other">Other</option>
                 </select>
             </div>
-        
-    
-            <div class="row-content">
-              
-              <label for="gender"><b>Department : </b></label>
-              <select class="ip" name="department" id="gender" @bind="@empM.Department" required>
-                <option value="--">-- Select Department --</option>
-                <option value="Male">HR</option>
-                <option value="Female">Engineer</option>
-                <option value="Other">Finance</option>
-                <option value="Other">Business</option>
-              
-              </select>
             
-            </div>
+                <div class="row-content">
+
+                    <label class="label text">Dartment</label>
+                    <select class="ip" name="department" id="gender" @bind="@empM.Department" required>
+                        <option value="--">-- Select Department --</option>
+                        <option value="Male">HR</option>
+                        <option value="Female">Engineer</option>
+                        <option value="Other">Finance</option>
+                        <option value="Other">Business</option>
+                        <option value="Other">Finance</option>
+
+                    </select>
+
+                </div>
 
 
             <div class="row-content">
                
                <label class="label text" for="salary">Choose your salary</label>
                <input class="input" @bind="@empM.Salary" type="number" min="300000" max="500000" step="1000" defaultvalue="400000" >
-               <output clas="salary-output text" for="salary">40000</output>
+               
              
             </div>
 
@@ -126,8 +133,13 @@
 @code {
     EmployeeModel empM =new EmployeeModel();
     public void Create()
-        {
+    {
+        registerBL.AddEmployee(empM);
 
-        }
+    }
+    public void addimg(string img)
+    {
+        empM.ProfileImg = img;
+    }
 
 }

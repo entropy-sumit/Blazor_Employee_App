@@ -8,5 +8,6 @@ namespace BussinessLAyer.Interfaces
     public interface IRegisterBL
     {
         public bool AddEmployee(EmployeeModel employeeModel);
+        public IEnumerable<EmployeeModel> GetAllEmployee();
     }
 }

@@ -1,3 +1,5 @@
+using BussinessLAyer.Interfaces;
+using BussinessLAyer.Services;
 using EmployeeApp.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -6,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RepositoryLayer.Interfaces;
+using RepositoryLayer.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +33,8 @@ namespace EmployeeApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddTransient<IRegisterRL, RegisterRL>();
+            services.AddTransient<IRegisterBL, RegisterBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

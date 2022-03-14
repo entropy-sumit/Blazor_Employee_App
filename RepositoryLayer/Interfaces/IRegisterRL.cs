@@ -8,5 +8,6 @@ namespace RepositoryLayer.Interfaces
     public interface IRegisterRL
     {
         public bool AddEmployee(EmployeeModel employeeModel);
+        public IEnumerable<EmployeeModel> GetAllEmployee();
     }
 }

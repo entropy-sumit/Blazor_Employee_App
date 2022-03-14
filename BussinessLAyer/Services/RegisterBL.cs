@@ -26,5 +26,16 @@ namespace BussinessLAyer.Services
 
             }
         }
+        public IEnumerable<EmployeeModel> GetAllEmployee()
+        {
+            try
+            {
+                return this.registerRL.GetAllEmployee();
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+        }
     }
 }
