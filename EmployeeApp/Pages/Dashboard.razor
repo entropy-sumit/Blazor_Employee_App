@@ -1,10 +1,10 @@
 ﻿@page "/Dashboard"
 
 @using CommonLayer.Model;
-
 @using BussinessLAyer.Interfaces
 
 @inject IRegisterBL registerBL
+
 <NavLink class="nav-link" href="Reg">
     <span class="oi oi-plus" aria-hidden="true"></span> Add New
 </NavLink>
@@ -39,10 +39,10 @@ else
                 <td>@emp.ProfileImg</td>
                 <td>@emp.Notes</td>
                 <td>
-                    <a class="nav-link" href="Reg/@emp.EmployeeId">
+                    <a class="nav-link" href="Update/@emp.EmployeeId">
                         <span class="oi oi-pencil" aria-hidden="true"></span> Edit
                     </a>
-                    <a class="nav-link" href="DeleteCustomer/@emp.EmployeeId">
+                    <a class="nav-link" href="Delete/@emp.EmployeeId">
                         <span class="oi oi-trash" aria-hidden="true"></span> Delete
                     </a>
                 </td>
@@ -54,6 +54,7 @@ else
 
 @code {
     EmployeeModel emp = new EmployeeModel();
+
     IEnumerable<EmployeeModel> employeeModels;
     protected override async Task OnInitializedAsync()
     {

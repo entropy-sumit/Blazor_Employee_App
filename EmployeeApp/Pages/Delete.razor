@@ -1,0 +1,72 @@
+﻿@page "/Delete "
+
+@using CommonLayer.Model
+@using BussinessLAyer.Interfaces
+
+@inject IRegisterBL registerBL
+
+<header class="header-content header">
+    <div class="logo-content">
+        <h2>Delete</h2>
+        <a href=""> <img src="/assets/logo.png" alt="logo image"></a>
+        <div>
+            <span class="emp-text">EMPLOYEE</span><br>
+            <span class="emp-text emp-payroll">PAYROLL  </span>
+        </div>
+    </div>
+</header>
+<h3>Are you sure you want to delete employee!!</h3>
+<br />
+<div class="form-content">
+    <EditForm Model="@empM">
+        <div class="row-content">
+            <label>Employee ID:</label>
+            <label>@empM.EmployeeId</label>
+        </div>
+        <div class="row-content">
+            <label>Name:</label>
+            <label>@empM.Name</label>
+        </div>
+        <div class="row-content">
+            <label>Gender:</label>
+            <label>@empM.Gender</label>
+        </div>
+        <div class="row-content">
+            <label>Department:</label>
+            <label>@empM.Department</label>
+        </div>
+        <div class="row-content">
+            <label>Notes:</label>
+            <label>@empM.Notes</label>
+        </div>
+        <div class="button-content">
+            <a href="/emphome" class="add-button">Cancel</a>
+            <div class="submit-reset">
+                <input type="button" @onclick="@DeleteEmp" class="btn btn-primary" value="Delete" />
+
+
+            </div>
+        </div>
+
+    </EditForm>
+</div>
+
+@code {
+         
+    EmployeeModel empM = new EmployeeModel();
+
+    [Parameter]
+    public string empid { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        empM = await Task.Run(() => registerBL.DeleteEmployee()
+
+    }
+    protected DeleteEmp()
+        {
+            registerBL.DeleteEmployee()
+        }
+
+}

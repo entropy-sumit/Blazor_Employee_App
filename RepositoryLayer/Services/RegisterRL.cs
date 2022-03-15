@@ -96,8 +96,110 @@ namespace RepositoryLayer.Services
                 this.sqlConnection.Close();
             }
 
-
-
         }
+        public EmployeeModel GetEmployeeData(int id)
+        {
+            EmployeeModel employee = new EmployeeModel();
+            sqlConnection = new SqlConnection(this.configuration.GetConnectionString("EMPLOYEE_APP_BLAZOR"));
+
+            try
+            {
+                using (this.sqlConnection)
+                {
+
+                    SqlCommand cmd = new SqlCommand("sp_GetEmployeeByID", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@EmployeeId", id);
+                    this.sqlConnection.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        employee.EmployeeId = Convert.ToInt32(rdr["EmployeeId"]);
+                        employee.Name = rdr["Name"].ToString();
+                        employee.Gender = rdr["Gender"].ToString();
+                        employee.Department = rdr["Department"].ToString();
+                        employee.Notes = rdr["Notes"].ToString();
+                        employee.Salary = rdr["Salary"].ToString();
+                        employee.ProfileImg = rdr["Profile_Img"].ToString();
+                        
+                    }
+                    sqlConnection.Close();
+                }
+                return employee; 
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
+        public void UpdateEmployee(EmployeeModel employee)
+        {
+           
+            sqlConnection = new SqlConnection(this.configuration.GetConnectionString("EMPLOYEE_APP_BLAZOR"));
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("sp_UpdateEmployee", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                    cmd.Parameters.AddWithValue("@Name", employee.Name);
+                    cmd.Parameters.AddWithValue("@Gender", employee.Gender);
+                    cmd.Parameters.AddWithValue("@Department", employee.Department);
+                    cmd.Parameters.AddWithValue("@Notes", employee.Notes);
+                    cmd.Parameters.AddWithValue("@Salary", employee.Salary);
+                    cmd.Parameters.AddWithValue("@Profile_Img", employee.ProfileImg);
+                    sqlConnection.Open();
+                    cmd.ExecuteNonQuery();
+                    
+                }
+                sqlConnection.Close();
+
+            }
+            
+            catch(Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+            
+        }
+        public void DeleteEmployee(int id)
+        {
+            sqlConnection = new SqlConnection(this.configuration.GetConnectionString("EMPLOYEE_APP_BLAZOR"));
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand cmd = new SqlCommand("usp_DeleteCustomer", sqlConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeId", id);
+                    sqlConnection.Open();
+                    cmd.ExecuteNonQuery();
+                    
+                }
+                this.sqlConnection.Close();
+
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
+
     }
 }

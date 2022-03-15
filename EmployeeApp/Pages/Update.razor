@@ -1,0 +1,151 @@
+﻿@page "/Update/{empid}"
+
+@using CommonLayer.Model
+@using BussinessLAyer.Interfaces
+
+@inject IRegisterBL registerBL
+@inject NavigationManager navigate
+
+
+<header class="header-content header">
+    <div class="logo-content">
+        <img src="/assets/images/logo.png" alt="image" style="width:56px">
+        <div>
+            <span class="emp-text"> Employee</span><br>
+            <span class="emp-text emp-payroll">PAYROLL</span>
+
+        </div>
+    </div>
+</header>
+<div class="form-content">
+    <EditForm Model="@empM">
+        <div class="form-head"> Employee PayRoll form</div>
+        <div class="row-content">
+            <label class="label text" for="name">Name</label>
+            <input class="input" type="text" id="name" name="name" placeholder="Your name.." @bind-value="empM.Name" required>
+            <error-output class="text-error" for="text"></error-output>
+        </div>
+
+        <div class="row-content">
+            <label class="label text" for="profile">Profile image</label>
+            <div class="profile-radio-content">
+
+                <label>
+                    <input type="checkbox" name="profile" value="/assets/profile-images/p1.png"
+                           @onchange="@(() => addimg("/assets/profile-images/p1.png"))" />
+                    <img src="/assets/profile-images/p1.png" />
+                </label>
+
+                <label>
+                    <input type="checkbox" name="profile" value="/assets/profile-images/p2.png"
+                           @onchange="@(() => addimg("/assets/profile-images/p2.png"))" />
+                    <img src="/assets/profile-images/p2.png" />
+                </label>
+
+                <label>
+                    <input type="checkbox" name="profile" value="/assets/profile-images/p3.png"
+                           @onchange="@(() => addimg("/assets/profile-images/p3.png"))" />
+                    <img src="/assets/profile-images/p3.png" />
+                </label>
+
+                <label>
+                    <input type="checkbox" name="profile" value="/assets/profile-images/p4.png"
+                           @onchange="@(() => addimg("/assets/profile-images/p4.png"))" />
+                    <img src="/assets/profile-images/p4.png" />
+                </label>
+            </div>
+        </div>
+        <div class="row-content">
+
+            <label class="label text" for="gender"> Gender</label>
+            <select class="ip" name="gender" id="gender" @bind="@empM.Gender" required>
+                <option value="--">-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="row-content">
+
+            <label class="label text" for="department">Department</label>
+            <select class="ip" name="department" id="department" @bind="@empM.Department" required>
+                <option value="--">-- Select Department --</option>
+                <option value="HR">HR</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Finance">Finance</option>
+                <option value="Business">Business</option>
+                <option value="Manager">Manager</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="row-content">
+
+            <label class="label text" for="salary">Choose your salary</label>
+            <input class="input" @bind="@empM.Salary" type="number" min="300000" max="500000" step="1000" defaultvalue="400000">
+
+
+        </div>
+
+        <div class="row-content">
+
+            <label class="label text" for="startDate">Start Date</label>
+            <input class="input" @bind="@empM.StartDate" type="date" />
+
+
+        </div>
+
+        <div class="row-content">
+            <label class="label text" for="notes">Notes</label>
+            <textarea id="notes" class="input" @bind="@empM.Notes" name="Notes" placeholder="" style="height: 100px"></textarea>
+
+
+        </div>
+
+        <div class="buttonParent">
+            <a href="Dashboard" class="resetButton button cancelButton">Cancel</a>
+            <div class="submit-reset">
+
+                <button type="submit" @onclick="@UpdateEmp" class="button submitButton" id="submitButton">Update</button>
+
+
+            </div>
+
+        </div>
+
+    </EditForm>
+
+</div>
+
+@code{
+    EmployeeModel empM = new EmployeeModel();
+
+    [Parameter]
+    public string empid { get; set; }
+
+    public void addimg(string img)
+    {
+        empM.ProfileImg = img;
+    }
+
+    protected void UpdateEmp()
+    {
+        registerBL.UpdateEmployee(empM);
+        navigate.NavigateTo("Dashboard");
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        empM = await Task.Run(() => registerBL.GetEmployeeData(Convert.ToInt32(empid)));
+
+    }
+    void Cancel()
+    {
+        navigate.NavigateTo("Dashboard");
+    } 
+}

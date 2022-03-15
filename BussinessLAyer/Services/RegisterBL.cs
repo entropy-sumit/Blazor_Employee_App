@@ -37,5 +37,38 @@ namespace BussinessLAyer.Services
                 throw;
             }
         }
+        public EmployeeModel GetEmployeeData(int id)
+        {
+            try
+            {
+                return this.registerRL.GetEmployeeData(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void UpdateEmployee(EmployeeModel employee)
+        {
+            try
+            {
+                this.registerRL.UpdateEmployee(employee);
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+        }
+        public void DeleteEmployee(int id)
+        {
+            try
+            {
+                this.registerRL.DeleteEmployee(id);
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+        }
     }
 }
