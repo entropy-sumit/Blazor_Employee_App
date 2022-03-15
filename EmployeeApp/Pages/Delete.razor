@@ -1,9 +1,10 @@
-﻿@page "/Delete "
+﻿@page "/Delete/{empid}"
 
 @using CommonLayer.Model
 @using BussinessLAyer.Interfaces
 
 @inject IRegisterBL registerBL
+@inject NavigationManager navigate
 
 <header class="header-content header">
     <div class="logo-content">
@@ -42,7 +43,7 @@
         <div class="button-content">
             <a href="/emphome" class="add-button">Cancel</a>
             <div class="submit-reset">
-                <input type="button" @onclick="@DeleteEmp" class="btn btn-primary" value="Delete" />
+                <input type="button" @onclick="@(x=>DeleteEmp(@empM.EmployeeId))" class="btn btn-primary" value="Delete" />
 
 
             </div>
@@ -52,21 +53,28 @@
 </div>
 
 @code {
-         
+
     EmployeeModel empM = new EmployeeModel();
 
     [Parameter]
     public string empid { get; set; }
+    protected void DeleteEmp(int EmployeeId)
+    {
+        registerBL.DeleteEmployee(EmployeeId);
+        navigate.NavigateTo("Dashboard");
+
+    }
 
     protected override async Task OnInitializedAsync()
     {
 
-        empM = await Task.Run(() => registerBL.DeleteEmployee()
+        empM = await Task.Run(() => registerBL.GetEmployeeData(Convert.ToInt32(empid)));
 
     }
-    protected DeleteEmp()
-        {
-            registerBL.DeleteEmployee()
-        }
+    void Cancel()
+    {
+        navigate.NavigateTo("Dashboard");
+    }
+
 
 }

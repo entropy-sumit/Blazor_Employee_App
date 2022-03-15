@@ -10,7 +10,7 @@ namespace CommonLayer.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
