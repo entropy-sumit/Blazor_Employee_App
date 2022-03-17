@@ -1,6 +1,7 @@
 ﻿@page "/Reg"
 @using CommonLayer.Model
 @using BussinessLAyer.Interfaces
+@using MatBlazor;
 
 @inject IRegisterBL registerBL
 
@@ -110,16 +111,25 @@
              
              </div>
               
-            <div class="buttonParent">
-               <a href="" class="resetButton button cancelButton">Cancel</a>
-               <div class="submit-reset">
-                 
-                <button type="submit" class="button submitButton" id="submitButton">Submit</button>
-                <button type="reset" class="resetButton button">Reset</button>
+             <div class="buttonParent">
+                 <a href="Dashboard" class="resetButton button cancelButton">Cancel</a>
+                 <div class="submit-reset">
 
-               </div>
+                     <button type="submit" class="button submitButton" id="submitButton">Submit</button>
+                     <button type="reset" class="resetButton button">Reset</button>
 
-            </div>
+                 </div>
+                 <MatSnackbar @bind-IsOpen="@snackBarSubmit">
+                     <MatSnackbarContent>Employee Register Succesfully..</MatSnackbarContent>
+                 </MatSnackbar>
+                 <MatSnackbar @bind-IsOpen="@snackBarCancel">
+                     <MatSnackbarContent>Return to Home..</MatSnackbarContent>
+                 </MatSnackbar>
+                 <MatSnackbar @bind-IsOpen="@snackBarReset">
+                     <MatSnackbarContent>Reset Employee Details..</MatSnackbarContent>
+                 </MatSnackbar>
+
+             </div>
         
         </EditForm>
     
@@ -131,15 +141,23 @@
 
 
 @code {
+    bool snackBarSubmit = false;
+    bool snackBarCancel = false;
+    bool snackBarReset = false;
+
     EmployeeModel empM =new EmployeeModel();
+
     public void Create()
     {
         registerBL.AddEmployee(empM);
+        snackBarSubmit = true;
+        this.StateHasChanged();
 
     }
     public void addimg(string img)
     {
         empM.ProfileImg = img;
     }
+
 
 }
